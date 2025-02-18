@@ -34,7 +34,7 @@ const App = () => {
     formData.append("file", file);
 
     try {
-      const response = await axios.post("http://127.0.0.1:5000/upload", formData, {
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/upload`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
@@ -51,7 +51,7 @@ const App = () => {
   const handleRemoveFile = async () => {
     if (filePath) {
       try {
-        await axios.post("http://127.0.0.1:5000/delete", { filepath: filePath });
+        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/delete`, { filepath: filePath });
       } catch (error) {
         console.error("Error deleting file", error);
       }
@@ -68,7 +68,7 @@ const App = () => {
     if (!question) return;
     setLoading(true);
     try {
-      const response = await axios.post("http://127.0.0.1:5000/ask", {
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/ask`, {
         question,
         filepath: filePath,
       });
@@ -85,7 +85,7 @@ const App = () => {
       const storedFilePath = localStorage.getItem("uploadedFilePath");
       if (storedFilePath) {
         try {
-          await axios.post("http://127.0.0.1:5000/delete", { filepath: storedFilePath });
+          await axios.post(`${process.env.REACT_APP_BACKEND_URL}/delete`, { filepath: storedFilePath });
           localStorage.removeItem("uploadedFilePath");
         } catch (error) {
           console.error("Error deleting file on unload", error);
