@@ -104,37 +104,69 @@ const App = () => {
       <div className="card">
         <h1>AI Research Assistant</h1>
         <p className="instructions">Upload a PDF file to get a summarized version of its contents. You can also ask follow-up questions based on the PDF.</p>
-        <div {...getRootProps()} className="dropzone">
-          <input {...getInputProps()} />
-          {file ? <p>{file.name}</p> : <p>Drag & drop a PDF file here or click to select</p>}
+        
+        <div className="file-upload-container">
+          <div {...getRootProps()} className={`dropzone ${file ? 'has-file' : ''}`}>
+            <input {...getInputProps()} />
+            {file ? (
+              <div className="file-info">
+                <span className="file-name">{file.name}</span>
+                <button onClick={(e) => {
+                  e.stopPropagation();
+                  handleRemoveFile();
+                }} className="remove-file-btn">
+                  <i className="fas fa-times"></i>
+                </button>
+              </div>
+            ) : (
+              <div className="upload-prompt">
+                <i className="fas fa-file-pdf"></i>
+                <p>Drag & drop a PDF file here or click to select</p>
+              </div>
+            )}
+          </div>
         </div>
+
         {error && <p className="error">{error}</p>}
-        {file && <button onClick={handleRemoveFile} className="remove-btn">Remove PDF</button>}
+        
         <button onClick={handleUpload} className="upload-btn" disabled={loading || !file}>
-          {loading ? "Processing..." : "Upload & Summarize"}
+          {loading ? (
+            <><i className="fas fa-spinner fa-spin"></i> Processing...</>
+          ) : (
+            <><i className="fas fa-upload"></i> Upload & Summarize</>
+          )}
         </button>
+
         {summary && (
           <div className="summary-box">
-            <h2>Summary:</h2>
+            <h2>Summary</h2>
             <p>{summary}</p>
           </div>
         )}
+
         {summary && (
           <div className="question-box">
-            <input
-              type="text"
-              placeholder="Ask a follow-up question..."
-              value={question}
-              onChange={(e) => setQuestion(e.target.value)}
-            />
-            <button onClick={handleAskQuestion} className="ask-btn" disabled={loading || !question}>
-              Ask
-            </button>
+            <div className="input-group">
+              <input
+                type="text"
+                placeholder="Ask a follow-up question..."
+                value={question}
+                onChange={(e) => setQuestion(e.target.value)}
+              />
+              <button onClick={handleAskQuestion} className="ask-btn" disabled={loading || !question}>
+                {loading ? (
+                  <i className="fas fa-spinner fa-spin"></i>
+                ) : (
+                  <i className="fas fa-paper-plane"></i>
+                )}
+              </button>
+            </div>
           </div>
         )}
+
         {answer && (
           <div className="answer-box">
-            <h2>Answer:</h2>
+            <h2>Answer</h2>
             <p>{answer}</p>
           </div>
         )}

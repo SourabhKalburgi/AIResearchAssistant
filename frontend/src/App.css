@@ -2,80 +2,214 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Arial", sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   background: linear-gradient(135deg, #6a11cb, #2575fc);
   color: #fff;
+  padding: 20px;
 }
 
 .container {
-  width: 90%;
-  max-width: 500px;
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+}
+
+.card {
   background: #ffffff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   color: #333;
 }
 
 h1 {
-  font-size: 24px;
-  margin-bottom: 20px;
+  font-size: 28px;
+  margin-bottom: 1rem;
+  color: #1a1a1a;
+}
+
+.instructions {
+  color: #666;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.file-upload-container {
+  margin-bottom: 1rem;
 }
 
 .dropzone {
-  border: 2px dashed #6a11cb;
-  padding: 20px;
-  border-radius: 10px;
-  background: #f8f9fa;
+  border: 2px dashed #e0e0e0;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: #fafafa;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.2s ease;
 }
 
 .dropzone:hover {
-  background: #eef2ff;
+  border-color: #6a11cb;
+  background: #f8f5ff;
+}
+
+.dropzone.has-file {
+  border-style: solid;
+  border-color: #6a11cb;
+  background: #f8f5ff;
+}
+
+.file-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.file-name {
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.remove-file-btn {
+  background: none;
+  border: none;
+  color: #ff4444;
+  cursor: pointer;
+  padding: 5px;
+  font-size: 1.1rem;
+  transition: transform 0.2s;
+}
+
+.remove-file-btn:hover {
+  transform: scale(1.1);
+}
+
+.upload-prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.upload-prompt i {
+  font-size: 2rem;
+  color: #6a11cb;
 }
 
 .upload-btn {
-  margin-top: 20px;
   width: 100%;
-  padding: 10px;
+  padding: 1rem;
   background: #6a11cb;
   border: none;
   color: white;
-  font-size: 16px;
-  border-radius: 5px;
+  font-size: 1rem;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
-.upload-btn:hover {
-  background: #2575fc;
+.upload-btn:hover:not(:disabled) {
+  background: #5509a7;
+  transform: translateY(-1px);
 }
 
 .upload-btn:disabled {
-  background: #cccccc;
+  background: #e0e0e0;
   cursor: not-allowed;
 }
 
-.summary-box {
-  margin-top: 20px;
-  padding: 15px;
-  background: #f1f1f1;
-  border-radius: 5px;
-  color: #333;
-  text-align: left;
+.question-box {
+  margin-top: 1.5rem;
+}
+
+.input-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.input-group input {
+  flex: 1;
+  padding: 0.8rem 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #6a11cb;
+}
+
+.ask-btn {
+  padding: 0.8rem 1.2rem;
+  background: #6a11cb;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.ask-btn:hover:not(:disabled) {
+  background: #5509a7;
+  transform: translateY(-1px);
+}
+
+.ask-btn:disabled {
+  background: #e0e0e0;
+  cursor: not-allowed;
+}
+
+.summary-box, .answer-box {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+}
+
+.summary-box h2, .answer-box h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+  color: #1a1a1a;
+}
+
+.error {
+  color: #ff4444;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
 }
 
 @media (max-width: 600px) {
+  .card {
+    padding: 1.5rem;
+  }
+  
+  .input-group {
+    flex-direction: column;
+  }
+  
+  .ask-btn {
+    width: 100%;
+  }
+}
+@media (max-width: 400px) {
   .container {
-    width: 95%;
+    width: 85%;
+  }
+  .file-name {
+    font-size: 0.7rem;
   }
 }
